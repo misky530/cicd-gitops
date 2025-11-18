@@ -35,6 +35,10 @@ spec:
           protocol: TCP
         # 环境变量来自 ConfigMap 和 Secret
         envFrom:
+        - secretRef:
+            name: drone-secret # 批量导入所有 Secret 键值对
+
+        env:
         # 强制正确的端口绑定，解决 CrashLoopBackOff
         - name: DRONE_SERVER_ADDR
           value: ":80"
@@ -47,8 +51,7 @@ spec:
             configMapKeyRef:
               name: drone-config
               key: DRONE_RPC_HOST
-        - secretRef:
-            name: drone-secret
+        
         # 资源限制（针对 2GB Worker 节点优化）
         resources:
           requests:
