@@ -9,7 +9,7 @@ data:
   DRONE_SERVER_PROTO: "http"
   
   # HTTP 服务器绑定
-  DRONE_HTTP_BIND: ":80"
+  DRONE_SERVER_ADDR: ":80"
   
   # RPC 协议
   DRONE_RPC_PROTO: "http"
