@@ -35,8 +35,18 @@ spec:
           protocol: TCP
         # 环境变量来自 ConfigMap 和 Secret
         envFrom:
-        - configMapRef:
-            name: drone-config
+        # 强制正确的端口绑定，解决 CrashLoopBackOff
+        - name: DRONE_SERVER_ADDR
+          value: ":80"
+        # 强制 Gitea Server 地址
+        - name: DRONE_GITEA_SERVER
+          value: "http://192.168.23.135:30300"
+        # 其他关键配置可以继续使用 valueFrom 引用
+        - name: DRONE_RPC_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: DRONE_RPC_HOST
         - secretRef:
             name: drone-secret
         # 资源限制（针对 2GB Worker 节点优化）
