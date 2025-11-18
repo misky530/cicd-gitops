@@ -8,6 +8,9 @@ data:
   DRONE_SERVER_HOST: "192.168.23.135"
   DRONE_SERVER_PROTO: "http"
   
+  # HTTP 服务器绑定
+  DRONE_HTTP_BIND: ":80"
+  
   # RPC 协议
   DRONE_RPC_PROTO: "http"
   DRONE_RPC_HOST: "drone-server.drone.svc.cluster.local"
