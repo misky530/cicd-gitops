@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: gitea
+
+# 引用 base 配置
+bases:
+  - ../../base
+
+# 生产环境特定的补丁
+patchesStrategicMerge:
+  - service-nodeport.yaml
+  - configmap-patch.yaml
+
+# 生产环境标签
+commonLabels:
+  environment: production

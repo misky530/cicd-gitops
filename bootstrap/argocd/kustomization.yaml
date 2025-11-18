@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# 命名空间
+namespace: argocd
+
+# 基础资源
+resources:
+  # 创建 namespace
+  - namespace.yaml
+  # 使用 ArgoCD 官方安装清单（稳定版本）
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.3/manifests/install.yaml
+
+# 资源优化补丁（针对你的 2GB Worker 节点）
+# 每个补丁包含资源限制和 Node Affinity，确保只调度到 Worker 节点
+patchesStrategicMerge:
+  - patches/argocd-server-resources.yaml
+  - patches/argocd-repo-server-resources.yaml
+  - patches/argocd-application-controller-resources.yaml
+  - patches/argocd-redis-resources.yaml
+  - patches/argocd-dex-server-resources.yaml
